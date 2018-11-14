@@ -1,0 +1,229 @@
+function valida_texto_total(valor,tipo){
+      var patron = new RegExp("^[a-z A-Z 0-9 \xC1 \xC9 \xCD \xD1 \xD3 \xDA \xE1 \xE9 \xED \xF1 \xF3 \xFA_@-]+$");
+      if(tipo == 'string'){
+            patron = new RegExp("^[a-z A-Z \xC1 \xC9 \xCD \xD1 \xD3 \xDA \xE1 \xE9 \xED \xF1 \xF3 \xFA]+$");
+      } else {
+            if(tipo == 'rut'){
+                  patron = new RegExp("^[\.0-9]+\-?([0-9|k|K])$");
+            } else {
+                  if(tipo == 'mail1'){
+                        //patron = new RegExp("^[\. 0-9 a-z A-Z_-.]+$");
+                	   patron = /^[\. 0-9 a-z A-Z_-]+$/;
+                  } else {
+                        if(tipo == 'mail2'){
+                             //patron = new RegExp("^[a-zA-Z0-9]{2,}(\.[a-z0-9]{2,5}){1,3}$");
+                        	patron = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/;
+                        } else {
+                             if(tipo == 'mail'){
+                            	   patron = /^[a-zA-Z0-9\._%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/;
+                                   //patron = new RegExp("^[\. 0-9 a-z A-Z_-]+@[a-z]{2,}(\.[a-z]{2,5}){1,3}$");
+                             } else {
+                                   if(tipo == 'identificador'){
+                                         patron = new RegExp("^[a-z A-Z 0-9 \.\_\-\:]+$");
+                                   } else {
+                                         if(tipo == 'numerico'){
+                                               patron = new RegExp("^[0-9]+$");
+                                         } else {
+                                               if(tipo == 'alfanumerico'){
+                                                     patron = new RegExp("^[a-z A-Z 0-9 \xC1 \xC9 \xCD \xD1 \xD3 \xDA \xE1 \xE9 \xED \xF1 \xF3 \xFA_@-]+$");
+                                               } else {
+                                            	   if(tipo == 'telefono'){
+                                                       patron = new RegExp("^[2-9][0-9]{6,8}$");
+                                                 } else {
+                                                       return false;
+                                                 }
+                                              }
+                                         }
+                                   }
+                             }
+                        }
+                  }
+            }
+      }
+      return patron.test(valor);
+}
+function trim(string)
+{
+    for(var i=0; i<string.length; )
+    {
+        if(string.charAt(i)==" ")
+            {string=string.substring(i+1, string.length);}
+        else
+            {break;}
+    }
+    for(var i=string.length-1; i>=0; i=string.length-1)
+    {
+        if(string.charAt(i)==" ")
+            {string=string.substring(0,i);}
+        else
+            {break;}
+    }
+    return string;
+}
+
+
+function es_tilde(code){
+    var aceptadas=[225, 233, 237, 243, 250, 193 , 201, 205, 211, 218, 241, 209];
+    for (var j=0; j<aceptadas.length; j++){
+          if ( code == aceptadas[j] ) {
+                return true;
+          }
+  }
+}
+
+function valida_texto(e, tipo) {
+    var val = window.event ? true : false;
+    var code = (val) ? e.keyCode : e.which;  
+    if (code == 8 || code == 0 ){
+          return true;
+    }
+    if (tipo == 'alfanumerico') {
+          if(es_tilde(code)){
+                return true;
+          }
+          p = /[A-Z a-z0-9 \.\_\-]/;
+    } else {
+          if (tipo == 'numerico') {
+                p = /[0-9]/;
+          } else {
+                if (tipo == 'string') {
+                      if(es_tilde(code)){
+                           return true;
+                      }
+                      p = /[A-Z a-z]/;
+                } else {
+                      if (tipo == 'rut') {
+                           p = /[-Kk0-9]/;
+                      }else{
+                    	  if(tipo == 'identificador'){
+                    		  p= /[0-9 A-Z a-z \.\_\-]/;
+                    		  
+                    	  }else{
+                    		  if(tipo == 'mail1'){
+                    			  p= /[0-9 a-z A-Z \.\_\-]/;  
+                    		  }else{
+                    			  if(tipo == 'mail2'){
+                    				  p= /[0-9 a-z A-Z \.\_\-]/;  
+                    			  }
+                    			   
+                    		  }
+                    		  
+                    		  
+                    	  }
+                    	  
+                      }
+                }
+          }
+    }
+    t = String.fromCharCode(code);
+    return p.test(t);
+}
+
+function FormatearNumero(numero){
+    var n = numero.toString();
+    var numero_array = n.split("");
+    var i = n.length-1;
+    var cont = 0;
+    var auxiliar = "";
+    while(i>=0){
+          cont++;
+          auxiliar = numero_array[i]+auxiliar;
+          i--;
+          if(cont==3 && i>=0){
+                auxiliar = "."+auxiliar;
+                cont=0;
+          }
+    }
+    var retorno = ("$ "+auxiliar).toString();      
+    return retorno;
+}
+
+function validaFecha(agno, mes, dia){
+    mes = mes - 1;    
+    var tempDate = new Date(agno,mes,dia);
+    if((getYear(tempDate.getYear()) == agno) && (mes == tempDate.getMonth()) && (dia == tempDate.getDate())) {
+          return true;
+    }
+    else {
+          return false;
+    }
+}
+function getYear(d){ 
+    return (d < 1000) ? d + 1900 : d;
+}
+
+function validaRut (n) { 
+	var a = n, m = "", c = "", j = 0, f = 0, k = 0, g = 2, b, e, d, h, l; 
+	for (var i = 0; i < a.length; i++) 
+	if (a.charAt(i) != " " && a.charAt(i) != "." && a.charAt(i) != "-") 
+	m += a.charAt(i); 
+	a = m; 
+	if (a.length < 2) 
+	return false; 
+	for (var i = 0; i < a.length; i++) 
+	if (!esNumero(a.charAt(i)) && a.charAt(i) != "k" && a.charAt(i) != "K") 
+	return false; 
+	for (var i = a.length - 1; i >= 0; i--) 
+	c += a.charAt(i); 
+	b = c.charAt(0) + "-"; 
+	for (var i = 1; i < a.length; i++) 
+	if (j == 3) { 
+	b = b + "."; 
+	b = b + c.charAt(i); 
+	j = 1; 
+	} else { 
+	b = b + c.charAt(i); 
+	j++; 
+	} 
+	c = ""; 
+	for (var i = b.length - 1; i >= 0; i--) 
+	c += b.charAt(i); 
+	if (a.length > 2) 
+	e = a.substring(0, a.length - 1); 
+	else 
+	e = a.charAt(0); 
+	d = a.charAt(a.length - 1); 
+	if (!esNumero(d) && d != "k" && d != "K"){ 
+	return false; 
+	} 
+	for (var i = e.length - 1; i >= 0; i--) { 
+	k = k + e.charAt(i) * g; 
+	if (g == 7) 
+	g = 2; 
+	else 
+	g++; 
+	} 
+	h = k % 11; 
+	if (h == 1) 
+	f = "k"; 
+	else if (h == 0) 
+	f = "0"; 
+	else { 
+	l = 11 - h; 
+	f = l + ""; 
+	} 
+	return f != d.toLowerCase() ? false : true; 
+	} 
+
+/*Medios pago*/
+function almacenaStoragePago(selPago){
+	dataLayer.varPago = selPago;
+	localStorage.setItem('selPago', JSON.stringify(selPago));
+}
+function obtieneStoragePago(nombre){
+	var datObj=null;
+	var getlocal = localStorage.selPago;
+	if(getlocal != null && getlocal != "" && getlocal != false && getlocal != undefined){
+		datObj = JSON.parse(localStorage.selPago);
+	}
+	return datObj;	
+}
+ function marcaTag(){
+	 var _gaq = _gaq || [];  
+	 _gaq.push(['_setAccount', dataLayer.varPago]);
+	 _gaq.push(['_trackPageview']);
+	  
+	 (function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://www.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();  
+ }
+
+
