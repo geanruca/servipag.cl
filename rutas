@@ -1,0 +1,11 @@
+Página de ejemplo: view-source:https://www.servipag.com/wps/myportal/servipag/flujoPago/!ut/p/b1/jc_JDoIwEAbgZ_EByExbhHKsIFCMRS0i9EI4GONKDIQYn1704sllbpN8_yxgoLQoQeI4LuUIBZhL3e93dbdvLvXp2RunotFyrJgYT7NpGKKcBCs_9iPkEzKAcgCRojqRTuxrlboo2YyFCztjXNn_5fFDCfyVLwfgvkEw5wxFhHPMF4piipBBgXalD9i0s-O1JdJCLSoZ9OWNV0nqdZm-s3ydi6VI4twYMRrBBsxr77e3XuDL3Spuzls4m1PIiSetYewDeRvpFg!!/dl4/d5/L2dBISEvZ0FBIS9nQSEh/
+
+
+
+:::JS:::
+https://www.servipag.com/wps/PA_LoginServipag/jsp/js/Util_Login.js
+https://www.servipag.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+https://www.servipag.com/wps/PA_FlujoPagoFIII/_FlujoPago/js/FlujoPago.js?1.1
+
+:::CSS:::
+https://www.servipag.com/wps/PA_FlujoPagoFIII/_FlujoPago/css/StyleFlujoPago.css?1.1
